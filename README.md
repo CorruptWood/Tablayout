@@ -3,7 +3,7 @@
 
 关联了fragment和viewpager
 
-#引入
+# 引入
 
 在项目的build.gradle中添加：
 
@@ -20,16 +20,16 @@
 	        compile 'com.github.CorruptWood:Tablayout:1.0.0'
 	 }
    
-#用法
+# 用法
 
-###第一步：
+### 第一步：
 在你的项目的AndroidManifest中注明你的设计稿的尺寸。
 
     <meta-data android:name="design_width" android:value="768"/>
     <meta-data android:name="design_height" android:value="1280"/>
   
 
-###第二步：
+### 第二步：
 创建TabEntity集合，添加集合数据
 
      List<TabEntity> list = new ArrayList<>();
@@ -41,10 +41,10 @@
         }
       
         
-###第二步：
+### 第二步：
 设置数据，3种方式：
 
-#####① 不关联fragment和Viewpager 自己实现OnItemClickListener
+##### ① 不关联fragment和Viewpager 自己实现OnItemClickListener
 
       tabLayout1.bindViewData(list);
       tabLayout1.setOnItemClickListener(new TabInterface.OnItemClickListener() {
@@ -54,10 +54,10 @@
             }
         });
 
-#####② 关联fragment不关联Viewpager 
+##### ② 关联fragment不关联Viewpager 
       
        tabLayout1.bindViewData(list,fragmentList,R.id.container);
 
-#####③ 关联fragment和Viewpager 
+##### ③ 关联fragment和Viewpager 
 
        tabLayout2.bindViewData(list,viewPager,fragmentList);
