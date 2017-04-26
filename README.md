@@ -45,9 +45,7 @@
        	image = (ImageView) itemView.findViewById(R.id.image);
         line = itemView.findViewById(R.id.line1);
 	
-	
-	
-在xml中使用：
+	在xml中使用：
 
 	<com.zdm.tablayout.TabLayout
         app:isScroll="true"
