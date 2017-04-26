@@ -26,6 +26,10 @@
    
 # 用法
 
+####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
+
+####  文字(R.id.text)、图片(R.id.image)、线(R.id.line1)的id必须使用与之对应
+
 ### 第一步：
 在你的项目的AndroidManifest中注明你的设计稿的尺寸。
 
@@ -35,17 +39,7 @@
    
   
 ### 第二步：
-
-####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
-
-####  文字(R.id.text)、图片(R.id.image)、线(R.id.line1)的id必须使用  
-
-
-	textView = (TextView) itemView.findViewById(R.id.text);
-       	image = (ImageView) itemView.findViewById(R.id.image);
-        line = itemView.findViewById(R.id.line1);
-	
-	在xml中使用：
+在xml中使用：
 
 	<com.zdm.tablayout.TabLayout
         app:isScroll="true"
