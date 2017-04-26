@@ -61,3 +61,11 @@
 ##### ③ 关联fragment和Viewpager 
 
        tabLayout2.bindViewData(list,viewPager,fragmentList);
+       
+##### ④ 设置默认选中
+
+	tabLayout1.defaultSelected(0);
+	
+	如果当前tablayout，可以滑动，也可以设置滑动的偏移量，默认偏移量为50
+
+	tabLayout1.defaultSelected(0，60);
