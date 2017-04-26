@@ -32,8 +32,23 @@
     <meta-data android:name="design_width" android:value="768"/>
     <meta-data android:name="design_height" android:value="1280"/>
   
-
 ### 第二步：
+在xml中使用：
+
+	<com.zdm.tablayout.TabLayout
+        app:isScroll="true"
+        android:id="@+id/tabLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="10px"
+        android:background="#fff"
+        app:tabCount="8"
+        app:isShowLine="true"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_two" />
+	
+
+### 第三步：
 创建TabEntity集合，添加集合数据
 
      List<TabEntity> list = new ArrayList<>();
@@ -45,7 +60,7 @@
         }
       
         
-### 第二步：
+### 第四步：
 设置数据，3种方式：
 
 ##### ① 不关联fragment和Viewpager 自己实现OnItemClickListener
