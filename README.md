@@ -37,12 +37,13 @@
 ### 第二步：
 
 ####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
-####  文字、图片、线的id必须使用  
+
+####  文字(R.id.text)、图片(R.id.image)、线(R.id.line1)的id必须使用  
 
 
-	textView = (TextView) itemView.findViewById(R.id.text);//文字
-       	image = (ImageView) itemView.findViewById(R.id.image);//图片
-        line = itemView.findViewById(R.id.line1);//线
+	textView = (TextView) itemView.findViewById(R.id.text);
+       	image = (ImageView) itemView.findViewById(R.id.image);
+        line = itemView.findViewById(R.id.line1);
 	
 	
 	
