@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="TabLayout">
+        <!--单个tab的布局样式-->
+        <attr name="tabResId" format="reference"/>
+        <!--tabLayout 是否可以滑动 默认false-->
+        <attr name="isScroll" format="boolean"/>
+        <!--tab的数量  如果不可以滑动 数量不建议超过5个-->
+        <attr name="tabCount" format="integer"/>
+        <!--是否显示线-->
+        <attr name="isShowLine" format="boolean"/>
+
+        <attr name="lineSelectColor" format="color"/>
+
+        <attr name="lineUnSelectColor" format="color"/>
+
+        
+    </declare-styleable>
+    
+</resources>

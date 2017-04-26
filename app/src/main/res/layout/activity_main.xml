@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e5e5e5"
+    android:orientation="vertical"
+    tools:context="com.zdm.demo.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="380px"
+        android:background="#fff" />
+
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="1px"
+        android:background="#fff"
+        app:tabCount="4"
+        app:tabResId="@layout/tab_view_one" />
+
+    <com.zdm.tablayout.TabLayout
+        app:isScroll="true"
+        android:id="@+id/tabLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="10px"
+        android:background="#fff"
+        app:tabCount="8"
+        app:isShowLine="true"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_two" />
+
+    <android.support.v4.view.ViewPager
+        android:layout_marginTop="1px"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#fff" />
+
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/text"
+        android:layout_width="180px"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="30px"/>
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="180px"
+        android:layout_height="2px"/>
+
+</LinearLayout>
