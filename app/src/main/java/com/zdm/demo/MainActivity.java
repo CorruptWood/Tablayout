@@ -4,9 +4,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.zdm.tablayout.TabEntity;
+import com.zdm.tablayout.TabInterface;
 import com.zdm.tablayout.TabLayout;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -49,7 +51,13 @@ public class MainActivity extends AutoLayoutActivity {
                     Color.parseColor("#333333")));
             fragmentList.add(TabFragment.getTabFragment(x,1));
         }
-        //        tabLayout1.bindViewData(list);
+        tabLayout1.bindViewData(list);
+        tabLayout1.setOnItemClickListener(new TabInterface.OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(View v, int position) {
+
+            }
+        });
         tabLayout1.bindViewData(list,fragmentList,R.id.container);
         tabLayout1.defaultSelected(0);
 
