@@ -29,7 +29,9 @@
 ### 第一步：
 在你的项目的AndroidManifest中注明你的设计稿的尺寸。
 
-    <meta-data android:name="design_width" android:value="768"/><meta-data android:name="design_height" android:value="1280"/>
+
+    <meta-data android:name="design_width" android:value="768"/>
+    <meta-data android:name="design_height" android:value="1280"/>
    
   
 ### 第二步：
@@ -37,9 +39,12 @@
 ####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
 ####  文字、图片、线的id必须使用  
 
+
 	textView = (TextView) itemView.findViewById(R.id.text);//文字
        	image = (ImageView) itemView.findViewById(R.id.image);//图片
         line = itemView.findViewById(R.id.line1);//线
+	
+	
 	
 在xml中使用：
 
