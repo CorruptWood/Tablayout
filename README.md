@@ -3,6 +3,10 @@
 
 关联了fragment和viewpager
 
+# 效果图
+
+<img src="https://github.com/CorruptWood/Tablayout/blob/master/tablayout.gif"/>
+
 # 引入
 
 在项目的build.gradle中添加：
