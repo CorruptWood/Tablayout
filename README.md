@@ -33,6 +33,14 @@
     <meta-data android:name="design_height" android:value="1280"/>
   
 ### 第二步：
+
+####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
+####  文字、图片、线的id必须使用  
+
+	textView = (TextView) itemView.findViewById(R.id.text);//文字
+       	image = (ImageView) itemView.findViewById(R.id.image);//图片
+        line = itemView.findViewById(R.id.line1);//线
+	
 在xml中使用：
 
 	<com.zdm.tablayout.TabLayout
@@ -88,3 +96,47 @@
 	如果当前tablayout，可以滑动，也可以设置滑动的偏移量，默认偏移量为50
 
 	tabLayout1.defaultSelected(0，60);
+	
+	
+## tablayout的属性：
+
+	 <!--单个tab的布局样式-->
+        <attr name="tabResId" format="reference"/>
+        <!--tabLayout 是否可以滑动 默认false-->
+        <attr name="isScroll" format="boolean"/>
+        <!--tab的数量  如果不可以滑动 数量不建议超过5个-->
+        <attr name="tabCount" format="integer"/>
+        <!--是否显示线-->
+        <attr name="isShowLine" format="boolean"/>
+        <attr name="lineSelectColor" format="color"/>
+        <attr name="lineUnSelectColor" format="color"/>
+	
+	
+## tablayout的接口：
+
+    /**
+     * 会覆盖TabLayout的方法 需要自己实现切换效果
+     */
+    public interface OnItemClickListener {
+        void OnItemClickListener(View v, int position);
+    }
+
+    /**
+     * 实现ViewPager的OnPageChangeListener 会覆盖TabLayout的方法
+     */
+    public interface OnPageChangeListener{
+
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
+        public void onPageSelected(int position);
+
+        public void onPageScrollStateChanged(int state);
+    }
+
+    /**
+     * 实现ViewPager的OnPageChangeListener中的onPageSelected   不会覆盖TabLayout的方法
+     */
+    public interface OnPageSelectedListener{
+
+        public void onPageSelected(int position);
+    }
