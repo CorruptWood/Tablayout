@@ -1,5 +1,6 @@
 package com.zdm.tablayout;
 
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
 /**
@@ -35,8 +36,20 @@ import android.support.annotation.DrawableRes;
 public class TabEntity {
     private String title;
     private String subTitle;
-    private @DrawableRes int selectimgResId;
-    private @DrawableRes int unSelectimgResId;
+    private int selectimgResId;
+    private int unSelectimgResId;
+    @ColorInt
+    private int lineSelectColor;
+    @ColorInt
+    private int lineUnSelectColor;
+    @ColorInt
+    private int titleSelectColor;
+    @ColorInt
+    private int titleUnSelectColor;
+    @ColorInt
+    private int subtitleSelectColor;
+    @ColorInt
+    private int subtitleUnSelectColor;
 
     public TabEntity() {
     }
@@ -50,13 +63,13 @@ public class TabEntity {
         this.subTitle = subTitle;
     }
 
-    public TabEntity(String title, int selectimgResId, int unSelectimgResId) {
+    public TabEntity(String title, @DrawableRes int selectimgResId, @DrawableRes int unSelectimgResId) {
         this.title = title;
         this.selectimgResId = selectimgResId;
         this.unSelectimgResId = unSelectimgResId;
     }
 
-    public TabEntity(String title, String subTitle, int selectimgResId, int unSelectimgResId) {
+    public TabEntity(String title, String subTitle, @DrawableRes int selectimgResId, @DrawableRes int unSelectimgResId) {
         this.title = title;
         this.subTitle = subTitle;
         this.selectimgResId = selectimgResId;
@@ -83,7 +96,7 @@ public class TabEntity {
         return selectimgResId;
     }
 
-    public void setSelectimgResId(int selectimgResId) {
+    public void setSelectimgResId(@DrawableRes int selectimgResId) {
         this.selectimgResId = selectimgResId;
     }
 
@@ -91,7 +104,61 @@ public class TabEntity {
         return unSelectimgResId;
     }
 
-    public void setUnSelectimgResId(int unSelectimgResId) {
+    public void setUnSelectimgResId(@DrawableRes int unSelectimgResId) {
         this.unSelectimgResId = unSelectimgResId;
+    }
+
+    @ColorInt
+    public int getLineSelectColor() {
+        return lineSelectColor;
+    }
+
+    public void setLineSelectColor(@ColorInt int lineSelectColor) {
+        this.lineSelectColor = lineSelectColor;
+    }
+
+    @ColorInt
+    public int getLineUnSelectColor() {
+        return lineUnSelectColor;
+    }
+
+    public void setLineUnSelectColor(@ColorInt int lineUnSelectColor) {
+        this.lineUnSelectColor = lineUnSelectColor;
+    }
+
+    @ColorInt
+    public int getTitleSelectColor() {
+        return titleSelectColor;
+    }
+
+    public void setTitleSelectColor(@ColorInt int titleSelectColor) {
+        this.titleSelectColor = titleSelectColor;
+    }
+
+    @ColorInt
+    public int getTitleUnSelectColor() {
+        return titleUnSelectColor;
+    }
+
+    public void setTitleUnSelectColor(@ColorInt int titleUnSelectColor) {
+        this.titleUnSelectColor = titleUnSelectColor;
+    }
+
+    @ColorInt
+    public int getSubtitleSelectColor() {
+        return subtitleSelectColor;
+    }
+
+    public void setSubtitleSelectColor(@ColorInt int subtitleSelectColor) {
+        this.subtitleSelectColor = subtitleSelectColor;
+    }
+
+    @ColorInt
+    public int getSubtitleUnSelectColor() {
+        return subtitleUnSelectColor;
+    }
+
+    public void setSubtitleUnSelectColor(@ColorInt int subtitleUnSelectColor) {
+        this.subtitleUnSelectColor = subtitleUnSelectColor;
     }
 }

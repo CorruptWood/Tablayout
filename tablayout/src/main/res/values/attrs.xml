@@ -27,6 +27,8 @@
         <attr name="subtitleSelectSize" format="dimension"/>
         <attr name="subtitleUnSelectSize" format="dimension"/>
 
+        <attr name="useEntityColor" format="boolean"/>
+
     </declare-styleable>
     
 </resources>

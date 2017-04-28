@@ -17,4 +17,8 @@ public interface Constants {
 
     String[] evaluateTitle={"全部","好评","中评","差评"};
     int[] evaluateSubTitle={90,20,30,40};
+
+    String[] seckillTitle={"已结束","已结束","已结束","抢购中","即将开始"};
+    String[] seckillSubTitle={"08:00","10:00","12:00","14:00","16:00"};
+    String[] seckillColor={"#e5e5e5","#e5e5e5","#e5e5e5","#ff6633","#667788"};
 }

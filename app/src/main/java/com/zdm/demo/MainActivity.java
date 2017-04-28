@@ -1,5 +1,6 @@
 package com.zdm.demo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -95,7 +96,20 @@ public class MainActivity extends AutoLayoutActivity {
      * 两个标题样式  切换字体大小
      */
     private void initTabLayout4() {
+        List<TabEntity> list=new ArrayList<>();
+        for (int i = 0; i < Constants.seckillTitle.length; i++) {
+            TabEntity entity = new TabEntity(Constants.seckillTitle[i], Constants.seckillSubTitle[i]);
+//            entity.setLineSelectColor(Color.parseColor(Constants.seckillColor[i]));
+//            entity.setLineUnSelectColor(Color.TRANSPARENT);
+            entity.setTitleSelectColor(Color.parseColor(Constants.seckillColor[i]));
+            entity.setTitleUnSelectColor(Color.parseColor(Constants.seckillColor[i]));
+            entity.setSubtitleSelectColor(Color.parseColor(Constants.seckillColor[i]));
+            entity.setSubtitleUnSelectColor(Color.parseColor(Constants.seckillColor[i]));
+            list.add(entity);
+        }
 
+        tabLayout4.bindViewData(list);
+        tabLayout4.defaultSelected(3);
     }
 
 

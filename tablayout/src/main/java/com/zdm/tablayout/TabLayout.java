@@ -61,6 +61,8 @@ public class TabLayout extends LinearLayout {
     private int tabResId;
     private int tabCount;
     private boolean isScroll;
+    //使用实体类中的颜色
+    private boolean useEntityColor;
     private RecyclerView mRecycler;
     private RecyclerView.LayoutManager layoutManager;
     private TabRecylerAdapter tabAdapter;
@@ -115,12 +117,11 @@ public class TabLayout extends LinearLayout {
 
         tabResId = typedArray.getResourceId(R.styleable.TabLayout_tabResId, -1);
 
-        //        tabCount = typedArray.getInt(R.styleable.TabLayout_tabCount, -1);
-
         isScroll = typedArray.getBoolean(R.styleable.TabLayout_isScroll, false);
 
-        lineSelectColor = typedArray.getColor(R.styleable.TabLayout_lineSelectColor, Color.parseColor("#ffffff"));
+        useEntityColor = typedArray.getBoolean(R.styleable.TabLayout_useEntityColor, false);
 
+        lineSelectColor = typedArray.getColor(R.styleable.TabLayout_lineSelectColor, Color.parseColor("#ffffff"));
         lineUnSelectColor = typedArray.getColor(R.styleable.TabLayout_lineUnSelectColor, Color.TRANSPARENT);
 
         titleSelectColor = typedArray.getColor(R.styleable.TabLayout_titleSelectColor, 0);
@@ -138,10 +139,6 @@ public class TabLayout extends LinearLayout {
         if (tabResId == -1) {
             throw (new NullPointerException("tabResId资源未发现"));
         }
-
-        //        if (tabCount == -1) {
-        //            throw (new IndexOutOfBoundsException("tabCount的数量不能小于0"));
-        //        }
 
         mRecycler = new RecyclerView(context);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -183,7 +180,7 @@ public class TabLayout extends LinearLayout {
             if (selectPosition == position) {
                 //title文字颜色
                 if (holder.title != null && titleSelectColor != 0)
-                    holder.title.setTextColor(titleSelectColor);
+                    holder.title.setTextColor(useEntityColor ? tabEntity.getTitleSelectColor() : titleSelectColor);
 
                 //title文字大小切换
                 if (holder.title != null && titleSelectSize > 0) {
@@ -192,7 +189,8 @@ public class TabLayout extends LinearLayout {
                 }
 
                 if (holder.subtitle != null && subtitleSelectColor != 0)
-                    holder.subtitle.setTextColor(subtitleSelectColor);
+                    holder.subtitle.setTextColor(useEntityColor ? tabEntity.getSubtitleSelectColor() : subtitleSelectColor);
+//                    holder.subtitle.setTextColor(subtitleSelectColor);
 
                 if (holder.subtitle != null && subtitleSelectSize > 0) {
                     holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleSelectSize));
@@ -203,12 +201,14 @@ public class TabLayout extends LinearLayout {
                     holder.image.setImageResource(tabEntity.getSelectimgResId());
 
                 if (holder.line != null)
-                    holder.line.setBackgroundColor(lineSelectColor);
+                    holder.line.setBackgroundColor(useEntityColor ? tabEntity.getLineSelectColor() : lineSelectColor);
+//                holder.line.setBackgroundColor(lineSelectColor);
             } else {
 
                 //title文字颜色
                 if (holder.title != null && titleUnSelectColor != 0)
-                    holder.title.setTextColor(titleUnSelectColor);
+                    holder.title.setTextColor(useEntityColor ? tabEntity.getTitleUnSelectColor() : titleUnSelectColor);
+//                    holder.title.setTextColor(titleUnSelectColor);
 
                 //title文字大小切换
                 if (holder.title != null && titleUnSelectSize > 0) {
@@ -217,7 +217,8 @@ public class TabLayout extends LinearLayout {
                 }
 
                 if (holder.subtitle != null && subtitleUnSelectColor != 0)
-                    holder.subtitle.setTextColor(subtitleUnSelectColor);
+                    holder.subtitle.setTextColor(useEntityColor ? tabEntity.getSubtitleUnSelectColor() : subtitleUnSelectColor);
+//                holder.subtitle.setTextColor(subtitleUnSelectColor);
 
                 if (holder.subtitle != null && subtitleUnSelectSize > 0) {
                     holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleUnSelectSize));
@@ -228,7 +229,8 @@ public class TabLayout extends LinearLayout {
                     holder.image.setImageResource(tabEntity.getUnSelectimgResId());
 
                 if (holder.line != null)
-                    holder.line.setBackgroundColor(lineUnSelectColor);
+                    holder.line.setBackgroundColor(useEntityColor ? tabEntity.getLineUnSelectColor() : lineUnSelectColor);
+//                holder.line.setBackgroundColor(lineUnSelectColor);
             }
 
             if (holder.title != null)

@@ -64,7 +64,8 @@
         android:layout_marginTop="5px"
         android:background="#fff"
         app:lineSelectColor="#ff6633"
-        app:tabResId="@layout/tab_view_two"/>
+        app:useEntityColor="true"
+        app:tabResId="@layout/tab_view_four"/>
 
     <com.zdm.tablayout.TabLayout
         android:id="@+id/tabLayout5"
@@ -72,7 +73,6 @@
         android:layout_height="96px"
         android:layout_marginTop="5px"
         android:background="#fff"
-        app:lineSelectColor="#ff6633"
         app:tabResId="@layout/tab_view_two"/>
 
     <com.zdm.tablayout.TabLayout
