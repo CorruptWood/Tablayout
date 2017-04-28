@@ -9,17 +9,25 @@ import android.view.View;
 
 public class TabInterface {
 
+    public interface OnItemClickListener {
+        void OnItemClickListener(View v, int position);
+    }
+
+    public interface OnItemBindViewDataListener {
+        void OnItemBindViewDataListener(TabRecylerAdapter.ViewHolder holder,TabEntity tabEntity, int selectPosition, int position);
+    }
+
     /**
      * 会覆盖TabLayout的方法 需要自己实现切换效果
      */
-    public interface OnItemClickListener {
-        void OnItemClickListener(View v, int position);
+    public interface OnTablayoutItemClickListener {
+        void OnItemClickListener(View v, int position, int count);
     }
 
     /**
      * 实现ViewPager的OnPageChangeListener 会覆盖TabLayout的方法
      */
-    public interface OnPageChangeListener{
+    public interface OnPageChangeListener {
 
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
@@ -31,7 +39,7 @@ public class TabInterface {
     /**
      * 实现ViewPager的OnPageChangeListener中的onPageSelected   不会覆盖TabLayout的方法
      */
-    public interface OnPageSelectedListener{
+    public interface OnPageSelectedListener {
 
         public void onPageSelected(int position);
     }

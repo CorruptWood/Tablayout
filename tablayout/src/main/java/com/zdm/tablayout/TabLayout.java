@@ -15,9 +15,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,22 +65,31 @@ public class TabLayout extends LinearLayout {
     private RecyclerView.LayoutManager layoutManager;
     private TabRecylerAdapter tabAdapter;
     private List<Fragment> fragmentList;
-    private Fragment fragment;
-    private
-    @IdRes
-    int containerViewId;
+    private int containerViewId;
     private ViewPager viewPager;
     private TabViewPagerAdapter pagerAdapter;
     private int lineSelectColor;
     private int lineUnSelectColor;
-    private boolean isShowLine;
     private int offset = 50;
-    private TabInterface.OnItemClickListener itemClickListener;
+    private TabInterface.OnTablayoutItemClickListener itemClickListener;
     private TabInterface.OnPageChangeListener onPageChangeListener;
     private TabInterface.OnPageSelectedListener onPageSelectedListener;
+    private TabInterface.OnItemBindViewDataListener itemBindViewDataListener;
+    private int titleSelectColor;
+    private int titleUnSelectColor;
+    private int subtitleSelectColor;
+    private int subtitleUnSelectColor;
+    private int titleUnSelectSize;
+    private int subtitleUnSelectSize;
+    private int subtitleSelectSize;
+    private int titleSelectSize;
 
 
-    public void setOnItemClickListener(TabInterface.OnItemClickListener itemClickListener) {
+    public void addItemBindViewDataListener(TabInterface.OnItemBindViewDataListener itemBindViewDataListener) {
+        this.itemBindViewDataListener = itemBindViewDataListener;
+    }
+
+    public void setOnItemClickListener(TabInterface.OnTablayoutItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
@@ -85,7 +97,7 @@ public class TabLayout extends LinearLayout {
         this.onPageChangeListener = onPageChangeListener;
     }
 
-    public void setOnPageSelectedListener(TabInterface.OnPageSelectedListener onPageSelectedListener) {
+    public void addOnPageSelectedListener(TabInterface.OnPageSelectedListener onPageSelectedListener) {
         this.onPageSelectedListener = onPageSelectedListener;
     }
 
@@ -103,15 +115,23 @@ public class TabLayout extends LinearLayout {
 
         tabResId = typedArray.getResourceId(R.styleable.TabLayout_tabResId, -1);
 
-        tabCount = typedArray.getInt(R.styleable.TabLayout_tabCount, -1);
+        //        tabCount = typedArray.getInt(R.styleable.TabLayout_tabCount, -1);
 
         isScroll = typedArray.getBoolean(R.styleable.TabLayout_isScroll, false);
 
-        isShowLine = typedArray.getBoolean(R.styleable.TabLayout_isShowLine, false);
-
         lineSelectColor = typedArray.getColor(R.styleable.TabLayout_lineSelectColor, Color.parseColor("#ffffff"));
 
-        lineUnSelectColor = typedArray.getColor(R.styleable.TabLayout_lineUnSelectColor, Color.parseColor("#ffffff"));
+        lineUnSelectColor = typedArray.getColor(R.styleable.TabLayout_lineUnSelectColor, Color.TRANSPARENT);
+
+        titleSelectColor = typedArray.getColor(R.styleable.TabLayout_titleSelectColor, 0);
+        titleUnSelectColor = typedArray.getColor(R.styleable.TabLayout_titleUnSelectColor, titleSelectColor);
+        subtitleSelectColor = typedArray.getColor(R.styleable.TabLayout_subtitleSelectColor, 0);
+        subtitleUnSelectColor = typedArray.getColor(R.styleable.TabLayout_subtitleUnSelectColor, subtitleSelectColor);
+
+        titleSelectSize = (int) typedArray.getDimension(R.styleable.TabLayout_titleSelectSize, 0);
+        titleUnSelectSize = (int) typedArray.getDimension(R.styleable.TabLayout_titleUnSelectSize, titleSelectSize);
+        subtitleSelectSize = (int) typedArray.getDimension(R.styleable.TabLayout_subtitleSelectSize, 0);
+        subtitleUnSelectSize = (int) typedArray.getDimension(R.styleable.TabLayout_subtitleUnSelectSize, subtitleSelectSize);
 
         typedArray.recycle();
 
@@ -119,23 +139,16 @@ public class TabLayout extends LinearLayout {
             throw (new NullPointerException("tabResId资源未发现"));
         }
 
-        if (tabCount == -1) {
-            throw (new IndexOutOfBoundsException("tabCount的数量不能小于0"));
-        }
+        //        if (tabCount == -1) {
+        //            throw (new IndexOutOfBoundsException("tabCount的数量不能小于0"));
+        //        }
 
         mRecycler = new RecyclerView(context);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mRecycler.setLayoutParams(params);
         addView(mRecycler);
 
-        if (isScroll) {
-            layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        } else {
-            layoutManager = new GridLayoutManager(context, tabCount);
-        }
-        mRecycler.setLayoutManager(layoutManager);
-
-        tabAdapter = new TabRecylerAdapter(context, tabResId, isShowLine, lineSelectColor, lineUnSelectColor);
+        tabAdapter = new TabRecylerAdapter(getContext(), tabResId);
         mRecycler.setAdapter(tabAdapter);
         //移除更新动画
         ((SimpleItemAnimator) mRecycler.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -144,9 +157,9 @@ public class TabLayout extends LinearLayout {
             @Override
             public void OnItemClickListener(View v, int position) {
                 tabAdapter.selectPosition(position);
-                //自定义fragment切换
+                //自定义item点击事件
                 if (itemClickListener != null) {
-                    itemClickListener.OnItemClickListener(v, position);
+                    itemClickListener.OnItemClickListener(v, position, tabCount);
                 } else if (viewPager == null) {
                     relationFragment(position);
                 } else {
@@ -154,50 +167,125 @@ public class TabLayout extends LinearLayout {
                 }
             }
         });
+
+
+        tabAdapter.setOnItemBindViewDataListener(mItemBindViewDataListener);
     }
+
+    /**
+     * 设置条目数据
+     */
+    TabInterface.OnItemBindViewDataListener mItemBindViewDataListener = new TabInterface.OnItemBindViewDataListener() {
+        @Override
+        public void OnItemBindViewDataListener(TabRecylerAdapter.ViewHolder holder, TabEntity tabEntity,
+                                               int selectPosition, int position) {
+
+            if (selectPosition == position) {
+                //title文字颜色
+                if (holder.title != null && titleSelectColor != 0)
+                    holder.title.setTextColor(titleSelectColor);
+
+                //title文字大小切换
+                if (holder.title != null && titleSelectSize > 0) {
+                    holder.title.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSelectSize);
+                    AutoUtils.autoTextSize(holder.title);
+                }
+
+                if (holder.subtitle != null && subtitleSelectColor != 0)
+                    holder.subtitle.setTextColor(subtitleSelectColor);
+
+                if (holder.subtitle != null && subtitleSelectSize > 0) {
+                    holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleSelectSize));
+                    AutoUtils.autoTextSize(holder.subtitle);
+                }
+
+                if (holder.image != null)
+                    holder.image.setImageResource(tabEntity.getSelectimgResId());
+
+                if (holder.line != null)
+                    holder.line.setBackgroundColor(lineSelectColor);
+            } else {
+
+                //title文字颜色
+                if (holder.title != null && titleUnSelectColor != 0)
+                    holder.title.setTextColor(titleUnSelectColor);
+
+                //title文字大小切换
+                if (holder.title != null && titleUnSelectSize > 0) {
+                    holder.title.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleUnSelectSize);
+                    AutoUtils.autoTextSize(holder.title);
+                }
+
+                if (holder.subtitle != null && subtitleUnSelectColor != 0)
+                    holder.subtitle.setTextColor(subtitleUnSelectColor);
+
+                if (holder.subtitle != null && subtitleUnSelectSize > 0) {
+                    holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleUnSelectSize));
+                    AutoUtils.autoTextSize(holder.subtitle);
+                }
+
+                if (holder.image != null)
+                    holder.image.setImageResource(tabEntity.getUnSelectimgResId());
+
+                if (holder.line != null)
+                    holder.line.setBackgroundColor(lineUnSelectColor);
+            }
+
+            if (holder.title != null)
+                holder.title.setText(tabEntity.getTitle());
+
+            if (holder.subtitle != null)
+                holder.subtitle.setText(tabEntity.getSubTitle());
+
+
+            if(itemBindViewDataListener!=null){
+                itemBindViewDataListener.OnItemBindViewDataListener(holder,tabEntity,selectPosition,position);
+            }
+        }
+    };
 
     //关联ViewPager
     private void relationViewPager() {
         if (viewPager == null)
             return;
-        FragmentManager fm = ((AppCompatActivity) getContext())
-                .getSupportFragmentManager();
+        FragmentManager fm = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         pagerAdapter = new TabViewPagerAdapter(fm, fragmentList);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (onPageChangeListener != null) {
-                    onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (onPageChangeListener != null) {
-                    onPageChangeListener.onPageSelected(position);
-                } else {
-                    if (layoutManager instanceof LinearLayoutManager) {
-                        ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, offset);
-//                    } else if (layoutManager instanceof GridLayoutManager) {
-//                        ((GridLayoutManager) layoutManager).scrollToPositionWithOffset(position, offset);
-                    }
-                    tabAdapter.selectPosition(position);
-
-                    if(onPageSelectedListener!=null){
-                        onPageSelectedListener.onPageSelected(position);
-                    }
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (onPageChangeListener != null) {
-                    onPageChangeListener.onPageScrollStateChanged(state);
-                }
-            }
-        });
+        viewPager.addOnPageChangeListener(mPageChangeListener);
     }
+
+    ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (onPageChangeListener != null) {
+                onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if (onPageChangeListener != null) {
+                onPageChangeListener.onPageSelected(position);
+            } else {
+                if (layoutManager instanceof LinearLayoutManager) {
+                    //滚动偏移，避免屏幕显示的item让用户认为后面没有选项卡
+                    ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, offset);
+                }
+                tabAdapter.selectPosition(position);
+                //额外处理其他操作
+                if (onPageSelectedListener != null) {
+                    onPageSelectedListener.onPageSelected(position);
+                }
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            if (onPageChangeListener != null) {
+                onPageChangeListener.onPageScrollStateChanged(state);
+            }
+        }
+    };
 
     //关联fragment
     private void relationFragment(int position) {
@@ -232,7 +320,19 @@ public class TabLayout extends LinearLayout {
      * @param list
      */
     public void bindViewData(List<TabEntity> list) {
+        tabCount = list.size();
+        if (isScroll) {
+            layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        } else {
+            layoutManager = new GridLayoutManager(getContext(), tabCount);
+        }
+        mRecycler.setLayoutManager(layoutManager);
+
         tabAdapter.setList(list);
+    }
+
+    public void setTabCount(int count) {
+        this.tabCount = count;
     }
 
     /**
@@ -284,6 +384,4 @@ public class TabLayout extends LinearLayout {
         defaultSelected(position);
         this.offset = offset;
     }
-
-
 }

@@ -7,15 +7,26 @@
         <!--tabLayout 是否可以滑动 默认false-->
         <attr name="isScroll" format="boolean"/>
         <!--tab的数量  如果不可以滑动 数量不建议超过5个-->
-        <attr name="tabCount" format="integer"/>
+        <!--<attr name="tabCount" format="integer"/>-->
         <!--是否显示线-->
-        <attr name="isShowLine" format="boolean"/>
-
+        <!--<attr name="isShowLine" format="boolean"/>-->
         <attr name="lineSelectColor" format="color"/>
-
         <attr name="lineUnSelectColor" format="color"/>
 
-        
+        <attr name="titleSelectColor" format="color"/>
+        <attr name="titleUnSelectColor" format="color"/>
+
+        <attr name="subtitleSelectColor" format="color"/>
+        <attr name="subtitleUnSelectColor" format="color"/>
+
+        <!--<attr name="titleSizeChange" format="boolean"/>-->
+        <attr name="titleSelectSize" format="dimension"/>
+        <attr name="titleUnSelectSize" format="dimension"/>
+
+        <!--<attr name="subtitleSizeChange" format="boolean"/>-->
+        <attr name="subtitleSelectSize" format="dimension"/>
+        <attr name="subtitleUnSelectSize" format="dimension"/>
+
     </declare-styleable>
     
 </resources>

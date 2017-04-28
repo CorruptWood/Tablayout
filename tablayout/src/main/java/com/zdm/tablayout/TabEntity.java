@@ -34,42 +34,34 @@ import android.support.annotation.DrawableRes;
 
 public class TabEntity {
     private String title;
+    private String subTitle;
     private @DrawableRes int selectimgResId;
     private @DrawableRes int unSelectimgResId;
-    private int selectColor;
-    private int unSelectColor;
-    private int lineSelectColor;
-    private int lineUnSelectColor;
-//    private boolean isAdd;
 
     public TabEntity() {
     }
 
-    public TabEntity(String title, @DrawableRes int selectimgResId,@DrawableRes int unSelectimgResId,
-                     int selectColor, int unSelectColor) {
+    public TabEntity(String title) {
+        this.title = title;
+    }
+
+    public TabEntity(String title, String subTitle) {
+        this.title = title;
+        this.subTitle = subTitle;
+    }
+
+    public TabEntity(String title, int selectimgResId, int unSelectimgResId) {
         this.title = title;
         this.selectimgResId = selectimgResId;
         this.unSelectimgResId = unSelectimgResId;
-        this.selectColor = selectColor;
-        this.unSelectColor = unSelectColor;
-//        isAdd=true;
     }
 
-//    public TabEntity(String title, int selectimgResId, int unSelectimgResId, int selectColor,
-//                     int unSelectColor, int lineSelectColor, int lineUnSelectColor) {
-//        this.title = title;
-//        this.selectimgResId = selectimgResId;
-//        this.unSelectimgResId = unSelectimgResId;
-//        this.selectColor = selectColor;
-//        this.unSelectColor = unSelectColor;
-//        this.lineSelectColor = lineSelectColor;
-//        this.lineUnSelectColor = lineUnSelectColor;
-//        isAdd=false;
-//    }
-
-//    public boolean isAdd() {
-//        return isAdd;
-//    }
+    public TabEntity(String title, String subTitle, int selectimgResId, int unSelectimgResId) {
+        this.title = title;
+        this.subTitle = subTitle;
+        this.selectimgResId = selectimgResId;
+        this.unSelectimgResId = unSelectimgResId;
+    }
 
     public String getTitle() {
         return title;
@@ -79,11 +71,19 @@ public class TabEntity {
         this.title = title;
     }
 
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
     public int getSelectimgResId() {
         return selectimgResId;
     }
 
-    public void setSelectimgResId(@DrawableRes int selectimgResId) {
+    public void setSelectimgResId(int selectimgResId) {
         this.selectimgResId = selectimgResId;
     }
 
@@ -91,39 +91,7 @@ public class TabEntity {
         return unSelectimgResId;
     }
 
-    public void setUnSelectimgResId(@DrawableRes int unSelectimgResId) {
+    public void setUnSelectimgResId(int unSelectimgResId) {
         this.unSelectimgResId = unSelectimgResId;
-    }
-
-    public int getSelectColor() {
-        return selectColor;
-    }
-
-    public void setSelectColor(int selectColor) {
-        this.selectColor = selectColor;
-    }
-
-    public int getUnSelectColor() {
-        return unSelectColor;
-    }
-
-    public void setUnSelectColor(int unSelectColor) {
-        this.unSelectColor = unSelectColor;
-    }
-
-    public int getLineSelectColor() {
-        return lineSelectColor;
-    }
-
-    public void setLineSelectColor(int lineSelectColor) {
-        this.lineSelectColor = lineSelectColor;
-    }
-
-    public int getLineUnSelectColor() {
-        return lineUnSelectColor;
-    }
-
-    public void setLineUnSelectColor(int unlineSelectColor) {
-        this.lineUnSelectColor = unlineSelectColor;
     }
 }

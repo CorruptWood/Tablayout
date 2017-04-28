@@ -8,14 +8,13 @@
 
     <TextView
         android:layout_weight="1"
-        android:id="@+id/text"
+        android:id="@id/tablayout_title"
         android:layout_width="180px"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30px"/>
+        android:gravity="center"/>
 
     <ImageView
-        android:id="@+id/line1"
+        android:id="@id/tablayout_line"
         android:layout_width="180px"
         android:layout_height="2px"/>
 

@@ -46,24 +46,24 @@ import java.util.List;
 public class TabRecylerAdapter extends RecyclerView.Adapter<TabRecylerAdapter.ViewHolder> {
     private Context mContext;
     private int resId;
-    //    private int tabCount;
+//    private int tabCount;
     private List<TabEntity> list;
     private int selectPosition = -1;
     private TabInterface.OnItemClickListener listener;
-    private boolean isShowLine;
-    private int lineSelectColor;
-    private int lineUnSelectColor;
+    private TabInterface.OnItemBindViewDataListener bindlistener;
+
+    public void setOnItemBindViewDataListener(TabInterface.OnItemBindViewDataListener bindlistener) {
+        this.bindlistener = bindlistener;
+    }
 
     public void setOnItemClickListener(TabInterface.OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public TabRecylerAdapter(Context mContext, int resId, boolean isShowLine,int lineSelectColor,int lineUnSelectColor) {
-        this.mContext = mContext;
-        this.resId = resId;
-        this.isShowLine = isShowLine;
-        this.lineSelectColor=lineSelectColor;
-        this.lineUnSelectColor=lineUnSelectColor;
+    public TabRecylerAdapter(Context context,int tabResId) {
+        this.mContext =context;
+        this.resId = tabResId;
+//        this.tabCount = tabCount;
     }
 
     public void setList(List<TabEntity> list) {
@@ -93,47 +93,26 @@ public class TabRecylerAdapter extends RecyclerView.Adapter<TabRecylerAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView textView;
-        private ImageView image;
-        private View line;
+        protected TextView title;
+        protected TextView subtitle;
+        protected ImageView image;
+        protected View line;
 
         public ViewHolder(View itemView) {
             super(itemView);
             AutoUtils.auto(itemView);
             itemView.setOnClickListener(this);
-            textView = (TextView) itemView.findViewById(R.id.text);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            line = itemView.findViewById(R.id.line1);
+            title = (TextView) itemView.findViewById(R.id.tablayout_title);
+            subtitle = (TextView) itemView.findViewById(R.id.tablayout_subtitle);
+            image = (ImageView) itemView.findViewById(R.id.tablayout_image);
+            line = itemView.findViewById(R.id.tablayout_line);
         }
 
         public void bindViewHolderData(int position) {
             TabEntity tabEntity = list.get(position);
-
-            if (isShowLine) {
-                if (line != null)
-                    line.setVisibility(View.VISIBLE);
-            } else {
-                if (line != null)
-                    line.setVisibility(View.GONE);
+            if(bindlistener!=null){
+                bindlistener.OnItemBindViewDataListener(this,tabEntity,selectPosition,position);
             }
-
-            if (selectPosition == position) {
-                if (textView != null)
-                    textView.setTextColor(tabEntity.getSelectColor());
-                if (image != null)
-                    image.setImageResource(tabEntity.getSelectimgResId());
-                if (line != null)
-                    line.setBackgroundColor(lineSelectColor);
-            } else {
-                if (textView != null)
-                    textView.setTextColor(tabEntity.getUnSelectColor());
-                if (image != null)
-                    image.setImageResource(tabEntity.getUnSelectimgResId());
-                if (line != null)
-                    line.setBackgroundColor(lineUnSelectColor);
-            }
-            if (textView != null)
-                textView.setText(tabEntity.getTitle());
         }
 
         @Override

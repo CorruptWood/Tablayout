@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tablayout_title" type="id" />
+    <item name="tablayout_subtitle" type="id" />
+    <item name="tablayout_image" type="id" />
+    <item name="tablayout_line" type="id" />
+</resources>

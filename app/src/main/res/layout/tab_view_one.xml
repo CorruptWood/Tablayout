@@ -7,11 +7,11 @@
     <ImageView
         android:layout_width="45px"
         android:layout_height="45px"
-        android:id="@+id/image"/>
+        android:id="@id/tablayout_image"/>
 
     <TextView
         android:layout_marginTop="6px"
-        android:id="@+id/text"
+        android:id="@id/tablayout_title"
         android:gravity="center"
         android:textSize="24px"
         android:layout_width="match_parent"

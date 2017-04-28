@@ -1,47 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#e5e5e5"
-    android:orientation="vertical"
-    tools:context="com.zdm.demo.MainActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#e5e5e5"
+              android:orientation="vertical"
+              tools:context="com.zdm.demo.MainActivity">
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="380px"
-        android:background="#fff" />
+        android:layout_height="200px"
+        android:background="#fff"/>
 
     <com.zdm.tablayout.TabLayout
         android:id="@+id/tabLayout1"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="96px"
         android:layout_marginTop="1px"
         android:background="#fff"
-        app:tabCount="4"
-        app:tabResId="@layout/tab_view_one" />
+        app:tabResId="@layout/tab_view_one"
+        app:titleSelectColor="#1a93e9"
+        app:titleUnSelectColor="#333333"/>
 
     <com.zdm.tablayout.TabLayout
-        app:isScroll="true"
         android:id="@+id/tabLayout2"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="96px"
         android:layout_marginTop="10px"
         android:background="#fff"
-        app:tabCount="8"
-        app:isShowLine="true"
+        app:isScroll="true"
         app:lineSelectColor="#ff6633"
-        app:tabResId="@layout/tab_view_two" />
+        app:tabResId="@layout/tab_view_two"
+        app:titleSelectColor="#ff6633"
+        app:titleSelectSize="32px"
+        app:titleUnSelectColor="#333333"
+        app:titleUnSelectSize="26px"/>
 
     <android.support.v4.view.ViewPager
-        android:layout_marginTop="1px"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#fff" />
+        android:layout_height="200px"
+        android:layout_marginTop="1px"
+        android:background="#fff"/>
+
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_marginTop="10px"
+        android:background="#fff"
+        app:tabResId="@layout/tab_view_three"
+        app:titleSelectColor="#ff3366"
+        app:titleUnSelectColor="#888888"
+        app:subtitleSelectColor="#3636ff"
+        app:subtitleUnSelectColor="#6633ff"/>
+
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_marginTop="5px"
+        android:background="#fff"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_two"/>
+
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_marginTop="5px"
+        android:background="#fff"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_two"/>
+
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_marginTop="5px"
+        android:background="#fff"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_two"/>
 
 
 </LinearLayout>
