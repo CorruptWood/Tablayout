@@ -34,8 +34,6 @@ public class MainActivity extends AutoLayoutActivity {
     TabLayout tabLayout4;
     @InjectView(R.id.tabLayout5)
     TabLayout tabLayout5;
-    @InjectView(R.id.tabLayout6)
-    TabLayout tabLayout6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,6 @@ public class MainActivity extends AutoLayoutActivity {
         initTabLayout3();
         initTabLayout4();
         initTabLayout5();
-        initTabLayout6();
     }
 
     /**
