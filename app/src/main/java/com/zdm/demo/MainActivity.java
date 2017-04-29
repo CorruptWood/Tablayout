@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.zdm.tablayout.TabEntity;
+import com.zdm.tablayout.TabInterface;
 import com.zdm.tablayout.TabLayout;
+import com.zdm.tablayout.TabRecylerAdapter;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.ArrayList;
@@ -99,8 +102,6 @@ public class MainActivity extends AutoLayoutActivity {
         List<TabEntity> list=new ArrayList<>();
         for (int i = 0; i < Constants.seckillTitle.length; i++) {
             TabEntity entity = new TabEntity(Constants.seckillTitle[i], Constants.seckillSubTitle[i]);
-//            entity.setLineSelectColor(Color.parseColor(Constants.seckillColor[i]));
-//            entity.setLineUnSelectColor(Color.TRANSPARENT);
             entity.setTitleSelectColor(Color.parseColor(Constants.seckillColor[i]));
             entity.setTitleUnSelectColor(Color.parseColor(Constants.seckillColor[i]));
             entity.setSubtitleSelectColor(Color.parseColor(Constants.seckillColor[i]));
@@ -114,7 +115,33 @@ public class MainActivity extends AutoLayoutActivity {
 
 
     private void initTabLayout5() {
+        List<Fragment> fragmentList = new ArrayList<>();
+        List<TabEntity> list = new ArrayList<>();
+        for (int x = 0; x < Constants.title.length; x++) {
+            list.add(new TabEntity(Constants.title[x], Constants.selectIcons[x],
+                    Constants.unSelectIcons[x]));
+            fragmentList.add(TabFragment.getTabFragment(x, 1));
+        }
 
+        tabLayout5.bindViewData(list);
+        tabLayout5.defaultSelected(0);
+
+        //Tablayout的代码执行后会执行此回调的代码
+        tabLayout5.addItemBindViewDataListener(new TabInterface.OnItemBindViewDataListener() {
+            @Override
+            public void OnItemBindViewDataListener(TabRecylerAdapter.ViewHolder holder, TabEntity tabEntity, int selectPosition, int position) {
+                if(selectPosition==position)
+                Toast.makeText(MainActivity.this,"当前点击的索引是"+selectPosition,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //会覆盖Tablayout的切换按钮代码
+//        tabLayout5.setOnItemClickListener(new TabInterface.OnTablayoutItemClickListener() {
+//            @Override
+//            public void OnItemClickListener(View v, int position, int count) {
+//
+//            }
+//        });
     }
 
     private void initTabLayout6() {

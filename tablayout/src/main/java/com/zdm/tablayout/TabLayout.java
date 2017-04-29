@@ -179,21 +179,29 @@ public class TabLayout extends LinearLayout {
 
             if (selectPosition == position) {
                 //title文字颜色
-                if (holder.title != null && titleSelectColor != 0)
-                    holder.title.setTextColor(useEntityColor ? tabEntity.getTitleSelectColor() : titleSelectColor);
-
+                if (holder.title != null) {
+                    if (useEntityColor) {
+                        holder.title.setTextColor(tabEntity.getTitleSelectColor());
+                    }else if(titleSelectColor!=0){
+                        holder.title.setTextColor(titleSelectColor);
+                    }
+                }
                 //title文字大小切换
                 if (holder.title != null && titleSelectSize > 0) {
                     holder.title.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSelectSize);
                     AutoUtils.autoTextSize(holder.title);
                 }
 
-                if (holder.subtitle != null && subtitleSelectColor != 0)
-                    holder.subtitle.setTextColor(useEntityColor ? tabEntity.getSubtitleSelectColor() : subtitleSelectColor);
-//                    holder.subtitle.setTextColor(subtitleSelectColor);
+                if (holder.subtitle != null){
+                    if (useEntityColor) {
+                        holder.subtitle.setTextColor(tabEntity.getTitleSelectColor());
+                    }else if(subtitleSelectColor!=0){
+                        holder.subtitle.setTextColor(subtitleSelectColor);
+                    }
+                }
 
                 if (holder.subtitle != null && subtitleSelectSize > 0) {
-                    holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleSelectSize));
+                    holder.subtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtitleSelectSize);
                     AutoUtils.autoTextSize(holder.subtitle);
                 }
 
@@ -202,13 +210,15 @@ public class TabLayout extends LinearLayout {
 
                 if (holder.line != null)
                     holder.line.setBackgroundColor(useEntityColor ? tabEntity.getLineSelectColor() : lineSelectColor);
-//                holder.line.setBackgroundColor(lineSelectColor);
             } else {
-
                 //title文字颜色
-                if (holder.title != null && titleUnSelectColor != 0)
-                    holder.title.setTextColor(useEntityColor ? tabEntity.getTitleUnSelectColor() : titleUnSelectColor);
-//                    holder.title.setTextColor(titleUnSelectColor);
+                if (holder.title != null){
+                    if (useEntityColor) {
+                        holder.title.setTextColor(tabEntity.getTitleSelectColor());
+                    }else if(titleUnSelectColor!=0){
+                        holder.title.setTextColor(titleUnSelectColor);
+                    }
+                }
 
                 //title文字大小切换
                 if (holder.title != null && titleUnSelectSize > 0) {
@@ -216,12 +226,16 @@ public class TabLayout extends LinearLayout {
                     AutoUtils.autoTextSize(holder.title);
                 }
 
-                if (holder.subtitle != null && subtitleUnSelectColor != 0)
-                    holder.subtitle.setTextColor(useEntityColor ? tabEntity.getSubtitleUnSelectColor() : subtitleUnSelectColor);
-//                holder.subtitle.setTextColor(subtitleUnSelectColor);
+                if (holder.subtitle != null ){
+                    if (useEntityColor) {
+                        holder.subtitle.setTextColor(tabEntity.getTitleSelectColor());
+                    }else if(subtitleUnSelectColor!=0){
+                        holder.subtitle.setTextColor(subtitleUnSelectColor);
+                    }
+                }
 
                 if (holder.subtitle != null && subtitleUnSelectSize > 0) {
-                    holder.subtitle.setTextSize(AutoUtils.getPercentWidthSize(subtitleUnSelectSize));
+                    holder.subtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtitleUnSelectSize);
                     AutoUtils.autoTextSize(holder.subtitle);
                 }
 
@@ -230,7 +244,6 @@ public class TabLayout extends LinearLayout {
 
                 if (holder.line != null)
                     holder.line.setBackgroundColor(useEntityColor ? tabEntity.getLineUnSelectColor() : lineUnSelectColor);
-//                holder.line.setBackgroundColor(lineUnSelectColor);
             }
 
             if (holder.title != null)
@@ -238,7 +251,6 @@ public class TabLayout extends LinearLayout {
 
             if (holder.subtitle != null)
                 holder.subtitle.setText(tabEntity.getSubTitle());
-
 
             if(itemBindViewDataListener!=null){
                 itemBindViewDataListener.OnItemBindViewDataListener(holder,tabEntity,selectPosition,position);
@@ -333,9 +345,9 @@ public class TabLayout extends LinearLayout {
         tabAdapter.setList(list);
     }
 
-    public void setTabCount(int count) {
-        this.tabCount = count;
-    }
+//    public void setTabCount(int count) {
+//        this.tabCount = count;
+//    }
 
     /**
      * 绑定fragment

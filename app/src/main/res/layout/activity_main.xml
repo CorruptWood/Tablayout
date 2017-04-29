@@ -65,6 +65,10 @@
         android:background="#fff"
         app:lineSelectColor="#ff6633"
         app:useEntityColor="true"
+        app:titleSelectSize="32px"
+        app:titleUnSelectSize="28px"
+        app:subtitleSelectSize="26px"
+        app:subtitleUnSelectSize="24px"
         app:tabResId="@layout/tab_view_four"/>
 
     <com.zdm.tablayout.TabLayout
@@ -73,16 +77,16 @@
         android:layout_height="96px"
         android:layout_marginTop="5px"
         android:background="#fff"
-        app:tabResId="@layout/tab_view_two"/>
+        app:tabResId="@layout/tab_view_one"/>
 
-    <com.zdm.tablayout.TabLayout
-        android:id="@+id/tabLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="96px"
-        android:layout_marginTop="5px"
-        android:background="#fff"
-        app:lineSelectColor="#ff6633"
-        app:tabResId="@layout/tab_view_two"/>
+    <!--<com.zdm.tablayout.TabLayout-->
+        <!--android:id="@+id/tabLayout6"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="96px"-->
+        <!--android:layout_marginTop="5px"-->
+        <!--android:background="#fff"-->
+        <!--app:lineSelectColor="#ff6633"-->
+        <!--app:tabResId="@layout/tab_view_two"/>-->
 
 
 </LinearLayout>

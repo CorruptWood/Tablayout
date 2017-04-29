@@ -113,6 +113,8 @@ public class TabRecylerAdapter extends RecyclerView.Adapter<TabRecylerAdapter.Vi
             if(bindlistener!=null){
                 bindlistener.OnItemBindViewDataListener(this,tabEntity,selectPosition,position);
             }
+//            if(title!=null) AutoUtils.auto(title);
+//            if(subtitle!=null) AutoUtils.auto(subtitle);
         }
 
         @Override
