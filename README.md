@@ -13,7 +13,6 @@
 
     	allprojects {
 		repositories {
-			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
@@ -21,14 +20,24 @@
  添加依赖关系：
  
      dependencies {
-	        compile 'com.github.CorruptWood:Tablayout:1.0.0'
+	        compile 'com.github.CorruptWood:Tablayout:1.1.0'
 	 }
    
 # 用法
 
-####  注意：tabCount和tabResId必须赋值，否则会报错。tabResId为单个条目的布局，目前支持文字、图片、线,具体布局样式根据自己的需求设置。
+####  注意：tabResId必须赋值，否则会报错。tabResId为单个条目的布局,通过（app:tabResId="@layout/tab_view_two"）赋值，目前支持（TextView）标题、（TextView）副标题、（ImageView）图片、（View）线,具体布局样式根据自己的需求设置。
 
-####  文字(R.id.text)、图片(R.id.image)、线(R.id.line1)的id必须使用与之对应
+#### 如果需要改变item的字体大小，一定记住，定义的item的xml中标题不要设置字体大小的属性（android:textSize）,使用 subtitleUnSelectSize、subtitleSelectSize等属性设置对应的字体大小
+
+#### 如果你需要对每个item的颜色进行单独设置，设置useEntityColor属性为true,在TabEntity中设置对应控件的颜色，line的未选中颜色默认为透明
+
+####  四个控件对应的ID必须跟下面的ID保持一致，切命名的时候使用：android:id=@id/.....
+	
+	  <item name="tablayout_title" type="id" />
+    	  <item name="tablayout_subtitle" type="id" />
+	  <item name="tablayout_image" type="id" />
+	  <item name="tablayout_line" type="id" />
+	  
 
 ### 第一步：
 在你的项目的AndroidManifest中注明你的设计稿的尺寸。
@@ -53,16 +62,31 @@
         app:lineSelectColor="#ff6633"
         app:tabResId="@layout/tab_view_two" />
 	
+	
+tab_view_two的布局：
+
+	  <TextView
+		android:layout_weight="1"
+		android:id="@id/tablayout_title"
+		android:layout_width="180px"
+		android:layout_height="match_parent"
+		android:gravity="center"/>
+
+       <ImageView
+		android:id="@id/tablayout_line"
+		android:layout_width="180px"
+		android:layout_height="2px"/>
+	
 
 ### 第三步：
 创建TabEntity集合，添加集合数据
 
-     List<TabEntity> list = new ArrayList<>();
+      List<Fragment> fragmentList = new ArrayList<>();
+        List<TabEntity> list = new ArrayList<>();
         for (int x = 0; x < Constants.title.length; x++) {
             list.add(new TabEntity(Constants.title[x], Constants.selectIcons[x],
-                    Constants.unSelectIcons[x], Color.parseColor("#1296db"),
-                    Color.parseColor("#333333")));
-            fragmentList.add(TabFragment.getTabFragment(x,1));
+                    Constants.unSelectIcons[x]));
+            fragmentList.add(TabFragment.getTabFragment(x, 1));
         }
       
         
@@ -98,19 +122,38 @@
 	
 ## tablayout的属性：
 
-	 <!--单个tab的布局样式-->
+	   <!--单个tab的布局样式-->
         <attr name="tabResId" format="reference"/>
         <!--tabLayout 是否可以滑动 默认false-->
         <attr name="isScroll" format="boolean"/>
-        <!--tab的数量  如果不可以滑动 数量不建议超过5个-->
-        <attr name="tabCount" format="integer"/>
         <!--是否显示线-->
-        <attr name="isShowLine" format="boolean"/>
         <attr name="lineSelectColor" format="color"/>
         <attr name="lineUnSelectColor" format="color"/>
+        <attr name="titleSelectColor" format="color"/>
+        <attr name="titleUnSelectColor" format="color"/>
+        <attr name="subtitleSelectColor" format="color"/>
+        <attr name="subtitleUnSelectColor" format="color"/>
+        <attr name="titleSelectSize" format="dimension"/>
+        <attr name="titleUnSelectSize" format="dimension"/>
+        <attr name="subtitleSelectSize" format="dimension"/>
+        <attr name="subtitleUnSelectSize" format="dimension"/>
+        <attr name="useEntityColor" format="boolean"/>
 	
 	
 ## tablayout的接口：
+
+
+     public interface OnItemBindViewDataListener {
+        /**
+         * 会在tablayout的切换按钮逻辑代码之后调用次接口，不会覆盖tablayout的逻辑代码
+         * @param holder
+         * @param tabEntity   当前item的实体类
+         * @param selectPosition  当前选中的item 此索引为选中的索引
+         * @param position    当前的索引
+         */
+        void OnItemBindViewDataListener(TabRecylerAdapter.ViewHolder holder,TabEntity tabEntity, int selectPosition, int position);
+    }
+    
 
     /**
      * 会覆盖TabLayout的方法 需要自己实现切换效果
