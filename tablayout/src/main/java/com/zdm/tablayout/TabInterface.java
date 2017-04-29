@@ -13,7 +13,15 @@ public class TabInterface {
         void OnItemClickListener(View v, int position);
     }
 
+
     public interface OnItemBindViewDataListener {
+        /**
+         * 会在tablayout的切换按钮逻辑代码之后调用次接口，不会覆盖tablayout的逻辑代码
+         * @param holder
+         * @param tabEntity   当前item的实体类
+         * @param selectPosition  当前选中的item 此索引为选中的索引
+         * @param position    当前的索引
+         */
         void OnItemBindViewDataListener(TabRecylerAdapter.ViewHolder holder,TabEntity tabEntity, int selectPosition, int position);
     }
 
