@@ -26,7 +26,7 @@
 	 
   库中使用的是recylcerView：25.0.2，如果不想使用。添加以下依赖：
     
-      dependencies {
+          dependencies {
 	     compile ('com.github.CorruptWood:Tablayout:1.1.0',{
 		exclude group: 'com.android.support'
 	    })
