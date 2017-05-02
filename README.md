@@ -17,33 +17,31 @@
 		}
 	}
   
- 添加依赖关系：
+添加依赖关系：
  
      dependencies {
 	        compile 'com.github.CorruptWood:Tablayout:1.1.0'
 	 }
 	 
 	 
- 库中使用的是recylcerView：25.0.2，如果不想使用。添加以下依赖：
+库中使用的是recylcerView：25.0.2，如果不想使用。添加以下依赖：
   
-    
       dependencies {
       
 	     compile ('com.github.CorruptWood:Tablayout:1.1.0',{
 		exclude group: 'com.android.support'
 	    })
-      ｝
+        ｝
       
 
- 如果你依赖了鸿洋的autolayout,不想使用库中的autolayout,添加以下依赖：
-  
-
+如果你依赖了鸿洋的autolayout,不想使用库中的autolayout,添加以下依赖：
+ 
       dependencies {
 	     compile ('com.github.CorruptWood:Tablayout:1.1.0',{
 	        exclude group: 'com.zhy',module:'autolayout'
 		exclude group: 'com.android.support'
 	    })
-       ｝
+        ｝
        
 
 
