@@ -27,7 +27,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 //    compile project(':tablayout')
     compile 'com.jakewharton:butterknife:5.1.1'
-    compile ('com.github.CorruptWood:Tablayout:1.1.0',{
+    compile ('com.github.CorruptWood:Tablayout:1.1.1',{
         exclude group: 'com.zhy',module:'autolayout'
         exclude group: 'com.android.support'
     })
