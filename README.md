@@ -17,12 +17,34 @@
 		}
 	}
   
- 添加依赖关系：
+添加依赖关系：
  
      dependencies {
-	        compile 'com.github.CorruptWood:Tablayout:1.1.0'
+	        compile 'com.github.CorruptWood:Tablayout:1.1.1'
 	 }
-   
+	 
+	 
+库中使用的是recylcerView：25.0.2，如果不想使用。添加以下依赖：
+  
+      dependencies {
+      
+	     compile ('com.github.CorruptWood:Tablayout:1.1.1',{
+		exclude group: 'com.android.support'
+	    })
+        ｝
+      
+
+如果你依赖了鸿洋的autolayout,不想使用库中的autolayout,添加以下依赖：
+ 
+      dependencies {
+	     compile ('com.github.CorruptWood:Tablayout:1.1.1',{
+	        exclude group: 'com.zhy',module:'autolayout'
+		exclude group: 'com.android.support'
+	    })
+        ｝
+       
+
+
 # 用法
 
 ####  注意：tabResId必须赋值，否则会报错。tabResId为单个条目的布局,通过（app:tabResId="@layout/tab_view_two"）赋值，目前支持（TextView）标题、（TextView）副标题、（ImageView）图片、（View）线,具体布局样式根据自己的需求设置。
