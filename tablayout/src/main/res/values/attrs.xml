@@ -29,6 +29,11 @@
 
         <attr name="useEntityColor" format="boolean"/>
 
+        <!--item凸出-->
+        <!--<attr name="isHaveBulge" format="boolean"/>-->
+        <!--&lt;!&ndash;凸出的位置索引&ndash;&gt;-->
+        <!--<attr name="bulgeIndex" format="integer"/>-->
+
     </declare-styleable>
     
 </resources>

@@ -2,6 +2,7 @@ package com.zdm.demo;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
@@ -34,6 +35,8 @@ public class MainActivity extends AutoLayoutActivity {
     TabLayout tabLayout4;
     @InjectView(R.id.tabLayout5)
     TabLayout tabLayout5;
+    @InjectView(R.id.tabLayout6)
+    TabLayout tabLayout6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AutoLayoutActivity {
         initTabLayout3();
         initTabLayout4();
         initTabLayout5();
+        initTabLayout6();
     }
 
     /**
@@ -142,6 +146,25 @@ public class MainActivity extends AutoLayoutActivity {
     }
 
     private void initTabLayout6() {
+        final List<TabEntity> list = new ArrayList<>();
+        for (int x = 0; x < Constants.title.length; x++) {
+            list.add(new TabEntity(Constants.otherTitle[x],Integer.toString(5)));
+        }
 
+        tabLayout6.bindViewData(list);
+        tabLayout6.defaultSelected(0);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                list.clear();
+                for (int x = 0; x < Constants.title.length; x++) {
+                    list.add(new TabEntity(Constants.otherTitle[x],Integer.toString(2)));
+                }
+
+                tabLayout6.bindViewData(list);
+
+            }
+        },5000);
     }
 }

@@ -79,14 +79,23 @@
         android:background="#fff"
         app:tabResId="@layout/tab_view_one"/>
 
-    <!--<com.zdm.tablayout.TabLayout-->
-        <!--android:id="@+id/tabLayout6"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="96px"-->
-        <!--android:layout_marginTop="5px"-->
+    <com.zdm.tablayout.TabLayout
+        android:id="@+id/tabLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:layout_marginTop="5px"
+        android:background="#fff"
+        app:lineSelectColor="#ff6633"
+        app:tabResId="@layout/tab_view_six"
+        app:titleSelectColor="#ff6633"
+        app:titleUnSelectColor="#333333"/>
+
+
+    <!--<com.zdm.tablayout.TabBulgelayout-->
+        <!--android:id="@+id/tab"-->
         <!--android:background="#fff"-->
-        <!--app:lineSelectColor="#ff6633"-->
-        <!--app:tabResId="@layout/tab_view_two"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 
 </LinearLayout>

@@ -21,4 +21,6 @@ public interface Constants {
     String[] seckillTitle={"已结束","已结束","已结束","抢购中","即将开始"};
     String[] seckillSubTitle={"08:00","10:00","12:00","14:00","16:00"};
     String[] seckillColor={"#e5e5e5","#33f3f3","#33ff66","#ff6633","#667788"};
+
+    String[] otherTitle={"待提交","待审核","已通过","未通过"};
 }

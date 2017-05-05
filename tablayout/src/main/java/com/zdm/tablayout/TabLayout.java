@@ -85,6 +85,8 @@ public class TabLayout extends LinearLayout {
     private int subtitleUnSelectSize;
     private int subtitleSelectSize;
     private int titleSelectSize;
+    private boolean isHaveBulge;
+    private int bulgeIndex;
 
 
     public void addItemBindViewDataListener(TabInterface.OnItemBindViewDataListener itemBindViewDataListener) {
@@ -121,6 +123,9 @@ public class TabLayout extends LinearLayout {
 
         useEntityColor = typedArray.getBoolean(R.styleable.TabLayout_useEntityColor, false);
 
+        //        isHaveBulge = typedArray.getBoolean(R.styleable.TabLayout_isHaveBulge, false);
+        //        bulgeIndex = typedArray.getInt(R.styleable.TabLayout_bulgeIndex, 0);
+
         lineSelectColor = typedArray.getColor(R.styleable.TabLayout_lineSelectColor, Color.parseColor("#ffffff"));
         lineUnSelectColor = typedArray.getColor(R.styleable.TabLayout_lineUnSelectColor, Color.TRANSPARENT);
 
@@ -139,6 +144,9 @@ public class TabLayout extends LinearLayout {
         if (tabResId == -1) {
             throw (new NullPointerException("tabResId资源未发现"));
         }
+        //设置了item凸出，则当前的tablayout无法滑动
+        if (isHaveBulge)
+            isScroll = false;
 
         mRecycler = new RecyclerView(context);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -182,7 +190,7 @@ public class TabLayout extends LinearLayout {
                 if (holder.title != null) {
                     if (useEntityColor) {
                         holder.title.setTextColor(tabEntity.getTitleSelectColor());
-                    }else if(titleSelectColor!=0){
+                    } else if (titleSelectColor != 0) {
                         holder.title.setTextColor(titleSelectColor);
                     }
                 }
@@ -192,10 +200,10 @@ public class TabLayout extends LinearLayout {
                     AutoUtils.autoTextSize(holder.title);
                 }
 
-                if (holder.subtitle != null){
+                if (holder.subtitle != null) {
                     if (useEntityColor) {
                         holder.subtitle.setTextColor(tabEntity.getTitleSelectColor());
-                    }else if(subtitleSelectColor!=0){
+                    } else if (subtitleSelectColor != 0) {
                         holder.subtitle.setTextColor(subtitleSelectColor);
                     }
                 }
@@ -212,10 +220,10 @@ public class TabLayout extends LinearLayout {
                     holder.line.setBackgroundColor(useEntityColor ? tabEntity.getLineSelectColor() : lineSelectColor);
             } else {
                 //title文字颜色
-                if (holder.title != null){
+                if (holder.title != null) {
                     if (useEntityColor) {
                         holder.title.setTextColor(tabEntity.getTitleSelectColor());
-                    }else if(titleUnSelectColor!=0){
+                    } else if (titleUnSelectColor != 0) {
                         holder.title.setTextColor(titleUnSelectColor);
                     }
                 }
@@ -226,10 +234,10 @@ public class TabLayout extends LinearLayout {
                     AutoUtils.autoTextSize(holder.title);
                 }
 
-                if (holder.subtitle != null ){
+                if (holder.subtitle != null) {
                     if (useEntityColor) {
                         holder.subtitle.setTextColor(tabEntity.getTitleSelectColor());
-                    }else if(subtitleUnSelectColor!=0){
+                    } else if (subtitleUnSelectColor != 0) {
                         holder.subtitle.setTextColor(subtitleUnSelectColor);
                     }
                 }
@@ -252,8 +260,8 @@ public class TabLayout extends LinearLayout {
             if (holder.subtitle != null)
                 holder.subtitle.setText(tabEntity.getSubTitle());
 
-            if(itemBindViewDataListener!=null){
-                itemBindViewDataListener.OnItemBindViewDataListener(holder,tabEntity,selectPosition,position);
+            if (itemBindViewDataListener != null) {
+                itemBindViewDataListener.OnItemBindViewDataListener(holder, tabEntity, selectPosition, position);
             }
         }
     };
@@ -281,11 +289,7 @@ public class TabLayout extends LinearLayout {
             if (onPageChangeListener != null) {
                 onPageChangeListener.onPageSelected(position);
             } else {
-                if (layoutManager instanceof LinearLayoutManager) {
-                    //滚动偏移，避免屏幕显示的item让用户认为后面没有选项卡
-                    ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, offset);
-                }
-                tabAdapter.selectPosition(position);
+                setTablayoutCurrentItem(position);
                 //额外处理其他操作
                 if (onPageSelectedListener != null) {
                     onPageSelectedListener.onPageSelected(position);
@@ -300,6 +304,18 @@ public class TabLayout extends LinearLayout {
             }
         }
     };
+
+    /**
+     * 设置选中并滚动到选中的item
+     * @param position
+     */
+    private void setTablayoutCurrentItem(int position) {
+        if (layoutManager instanceof LinearLayoutManager) {
+            //滚动偏移，避免屏幕显示的item让用户认为后面没有选项卡
+            ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, offset);
+        }
+        tabAdapter.selectPosition(position);
+    }
 
     //关联fragment
     private void relationFragment(int position) {
@@ -345,9 +361,19 @@ public class TabLayout extends LinearLayout {
         tabAdapter.setList(list);
     }
 
-//    public void setTabCount(int count) {
-//        this.tabCount = count;
-//    }
+    /**
+     * 数据刷新
+     */
+    public void notifyDataSetChanged() {
+       tabAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 数据刷新
+     */
+    public void notifyItemChanged(int position) {
+        tabAdapter.notifyItemChanged(position);
+    }
 
     /**
      * 绑定fragment
@@ -381,11 +407,14 @@ public class TabLayout extends LinearLayout {
      * @param position
      */
     public void defaultSelected(int position) {
-        tabAdapter.selectPosition(position);
+//        tabAdapter.selectPosition(position);
+        setTablayoutCurrentItem(position);
         if (viewPager == null)
             relationFragment(position);
-        else
+        else {
             relationViewPager();
+            viewPager.setCurrentItem(position);
+        }
     }
 
     /**
