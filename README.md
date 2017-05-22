@@ -20,7 +20,7 @@
 添加依赖关系：
  
      dependencies {
-	        compile 'com.github.CorruptWood:Tablayout:1.1.2'
+	        compile 'com.github.CorruptWood:Tablayout:1.1.3'
 	 }
 	 
 	 
@@ -28,7 +28,7 @@
   
       dependencies {
       
-	     compile ('com.github.CorruptWood:Tablayout:1.1.2',{
+	     compile ('com.github.CorruptWood:Tablayout:1.1.3',{
 		exclude group: 'com.android.support'
 	    })
         ｝
@@ -37,7 +37,7 @@
 如果你依赖了鸿洋的autolayout,不想使用库中的autolayout,添加以下依赖：
  
       dependencies {
-	     compile ('com.github.CorruptWood:Tablayout:1.1.2',{
+	     compile ('com.github.CorruptWood:Tablayout:1.1.3',{
 	        exclude group: 'com.zhy',module:'autolayout'
 		exclude group: 'com.android.support'
 	    })
