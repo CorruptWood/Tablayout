@@ -73,7 +73,8 @@ public class TabLayout extends LinearLayout {
     private int lineSelectColor;
     private int lineUnSelectColor;
     private int offset = 50;
-    private TabInterface.OnTablayoutItemClickListener itemClickListener;
+    private TabInterface.OnTablayoutItemClickListener tabItemClickListener;
+    private TabInterface.OnItemClickListener itemClickListener;
     private TabInterface.OnPageChangeListener onPageChangeListener;
     private TabInterface.OnPageSelectedListener onPageSelectedListener;
     private TabInterface.OnItemBindViewDataListener itemBindViewDataListener;
@@ -89,12 +90,16 @@ public class TabLayout extends LinearLayout {
     private int bulgeIndex;
 
 
+    public void addOnItemClickListener(TabInterface.OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
     public void addItemBindViewDataListener(TabInterface.OnItemBindViewDataListener itemBindViewDataListener) {
         this.itemBindViewDataListener = itemBindViewDataListener;
     }
 
-    public void setOnItemClickListener(TabInterface.OnTablayoutItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public void setOnTabItemClickListener(TabInterface.OnTablayoutItemClickListener itemClickListener) {
+        this.tabItemClickListener = tabItemClickListener;
     }
 
     public void setOnPageChangeListener(TabInterface.OnPageChangeListener onPageChangeListener) {
@@ -163,12 +168,16 @@ public class TabLayout extends LinearLayout {
             public void OnItemClickListener(View v, int position) {
                 tabAdapter.selectPosition(position);
                 //自定义item点击事件
-                if (itemClickListener != null) {
-                    itemClickListener.OnItemClickListener(v, position, tabCount);
+                if (tabItemClickListener != null) {
+                    tabItemClickListener.OnItemClickListener(v, position, tabCount);
                 } else if (viewPager == null) {
                     relationFragment(position);
                 } else {
                     viewPager.setCurrentItem(position);
+                }
+
+                if(itemClickListener!=null){
+                    itemClickListener.OnItemClickListener(v,position);
                 }
             }
         });
